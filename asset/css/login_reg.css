@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+
+html { 
+    background: url(../images/desktopbackgroup_pic/social_desktop_pic.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+body{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background: none;
+}
+
+.wrapper{
+    text-align: center;
+    width: 30%;
+    min-width: 30%;
+    margin: 2% auto;
+    box-shadow: 3px 3px 3px 3px #ccc; 
+    background: white;
+    border-radius: 3px;
+    background-color: rgba(221, 203, 203, 0.15);  
+    backdrop-filter: blur(5px);
+}
+
+.login_register_header{
+    width: 100%;
+    min-height: 60px;
+    background-color: rgb(10, 55, 94);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: white;
+    margin-bottom: 4px;
+    
+    
+}
+
+input[type="text"], input[type="email"], input[type="password"]{
+    width: 80%;
+    margin: 8px;
+    border-radius: 2px solid gray;
+    padding: 5px;
+ 
+} 
+
+input[type="submit"]{
+    background-color: green;
+    color: navajowhite;
+    border-radius: 2px solid gray;
+    padding: 5px;
+    border: 1px solid darkcyan;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+ 
+} 
+
+#second_form{
+    display: none;
+}
