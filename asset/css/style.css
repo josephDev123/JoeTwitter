@@ -6,9 +6,12 @@ body{
     margin: 0px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(157, 155, 155);
    
 }
 
+
+/* header section */
 header{
     display: flex;
     background-color: #183153;
@@ -47,4 +50,60 @@ header{
    width: 250px;
    outline: none;
     
+}
+
+/* newfeed section */
+
+.newsfeed_container{
+    margin: 0 auto;
+   width: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.personal_detail_container{
+    flex: 1 0 100px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.personal_detail_container img{
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.newsfeed_detail_right{
+    flex: 3 0 600px;
+    margin-top: 10px;
+}
+
+
+.personal_detail_container{
+    display: flex;
+}
+
+.newsfeed_form{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.newsfeed_form input[type='submit']{
+   font-size: 20px;
+   border-radius: 5px;
+   color: white;
+   border: none;
+   background-color: #183153;
+   margin-left: 10px;
+   flex: 1 1;
+}
+
+.newsfeed_form textarea{
+    flex: 8 1;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
 }
