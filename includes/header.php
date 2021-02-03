@@ -1,8 +1,29 @@
 <?php
 session_start();
+include 'database/database_config.php';
+include 'asset\Classes\Users.php';
+include 'asset\Classes\Posts.php';
+
+$user =new Users($conn, $_SESSION['surname']);
+
 if(!isset( $_SESSION['firstname'])){
     header('Location: reg_form.php');
 }
+
+if(isset($_SESSION['surname'])){
+    $sql = mysqli_query($conn, "SELECT * FROM user_table WHERE reg_surname = '{$_SESSION["surname"]}' ");
+    $row = mysqli_fetch_array($sql);
+    $firstname = $row['reg_firstname'];
+    $lastname = $row['reg_lastname'];
+    $num_post = $row['num_posts'];
+    $profile_pic = $row['profile_pic'];
+}
+
+if (isset($_POST['post_submit'])) {
+    $post = new Posts($conn, $_SESSION['surname']);
+    $post->PostSubmit($_POST['post_value'],  $_SESSION['surname']);
+}
+
 ?>
 
 

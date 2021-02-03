@@ -97,11 +97,11 @@ if (isset($_POST['reg_submitBtn'])) {
 
         if(empty($error_array)) {
             $reg_surname = $reg_firstname.'-'.$reg_lastname.mt_rand();
-            $profile_pic = "../asset/images/profile_pic/download.png";
+            $profile_pic = "asset/images/profile_pic/download.png";
             // $reg_password = password_hash($reg_password, PASSWORD_DEFAULT);
             $reg_password = md5($reg_password);
 
-            $sql="SELECT * FROM joetwitter_table WHERE reg_email = '$reg_email' OR reg_password = '$reg_password'";
+            $sql="SELECT * FROM user_table WHERE reg_email = '$reg_email' OR reg_password = '$reg_password'";
             $selectFrmDb = mysqli_query($conn, $sql);
             $num = mysqli_num_rows($selectFrmDb);
 
@@ -115,7 +115,7 @@ if (isset($_POST['reg_submitBtn'])) {
                 // }
                 
             }else{
-                $sql ="INSERT INTO joetwitter_table ( reg_firstname, reg_lastname, reg_email, reg_password, reg_surname, reg_date, profile_pic ) VALUES ('$reg_firstname', '$reg_lastname', '$reg_email', '$reg_password', '$reg_surname', now(), '$profile_pic')";
+                $sql ="INSERT INTO user_table ( reg_firstname, reg_lastname, reg_email, reg_password, reg_surname, reg_date, profile_pic ) VALUES ('$reg_firstname', '$reg_lastname', '$reg_email', '$reg_password', '$reg_surname', now(), '$profile_pic')";
                 $insertIntoDb = mysqli_query($conn, $sql);
                 array_push($error_array, "Registration successful<br>");
           

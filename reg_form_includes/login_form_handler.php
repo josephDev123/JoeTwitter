@@ -7,7 +7,7 @@ if (isset($_POST['login_submit'])) {
     $login_password = md5($_POST['login_password']);
 
 
-    $sql ="SELECT * FROM  joetwitter_table WHERE reg_email = '$login_email' AND reg_password = '$login_password'";
+    $sql ="SELECT * FROM  user_table WHERE reg_email = '$login_email' AND reg_password = '$login_password'";
     $selectDbquery = mysqli_query($conn, $sql);
     $num = mysqli_num_rows($selectDbquery);
     if ($num > 0) {
@@ -17,6 +17,7 @@ if (isset($_POST['login_submit'])) {
          $dbusers['reg_firstname'];
              header('Location: index.php');
              $_SESSION['firstname'] = $dbusers['reg_firstname'];
+             $_SESSION['surname'] = $dbusers['reg_surname'];
         
     }else{
         // array_push($error_array, "Have not registered yet<br>");
