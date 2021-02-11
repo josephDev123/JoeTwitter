@@ -137,6 +137,7 @@ header{
 .img_wrapper img{
     border-radius: 5px;
     width: 100%;
+    height: 65%;
 }
 
 

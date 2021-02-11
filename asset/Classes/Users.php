@@ -5,28 +5,46 @@ class Users{
 private $conn;
 private $user;
 
-    function __construct($conn, $user){
+   public function __construct($conn, $user){
         $this->conn = $conn;
         $sql = mysqli_query($conn, "SELECT * FROM  user_table WHERE reg_surname = '{$user}' ");
         $this->user = mysqli_fetch_array($sql);
     }
 
-    function getFirstAndLastname(){
+    public function getFirstAndLastname(){
         $surname = $this->user['reg_surname'];
         $sql =mysqli_query($this->conn, "SELECT reg_firstname, reg_lastname FROM user_table WHERE reg_surname = '{$surname}' ");
         $row = mysqli_fetch_array($sql);
         return $row['reg_firstname'] .' '. $row['reg_lastname'];
     }
 
-    function getUsername(){
-        return $this->user['reg_surname'];
+    public function getUsername(){
+        $surname = $this->user['reg_surname'];
+        $sql = mysqli_query($this->conn, "SELECT reg_surname FROM user_table WHERE reg_surname = '{$surname}'");
+        $row = mysqli_fetch_array($sql);
+        return $row['reg_surname'];
     }
 
-    function getProfilePic(){
-        return $this->user['profile_pic'];
+    public function getProfilePic(){
+        $surname = $this->user['reg_surname'];
+        $sql = mysqli_query($this->conn, "SELECT profile_pic FROM user_table WHERE reg_surname = '{$surname}'");
+        $row = mysqli_fetch_array($sql);
+        return $row['profile_pic'];
+        
     }
 
-    function numOfPost(){
+    public function isClosed(){
+        $surname = $this->user['reg_surname'];
+        $sql = mysqli_query($this->conn, "SELECT account_closed FROM user_table WHERE reg_surname = '{$surname}' ");
+        $row = mysqli_fetch_array($sql);
+        if ($row['account_closed'] == 'yes') {
+         return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function numOfPost(){
         $surname = $this->user['reg_surname'];
         $sql = mysqli_query($this->conn, "SELECT num_posts FROM user_table WHERE reg_surname = '{$surname}'");
         $row =mysqli_fetch_array($sql);

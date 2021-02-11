@@ -3,12 +3,12 @@
 
     <div class="newsfeed_container">
         <div class="personal_detail_container">
-            <img src="<?php echo $profile_pic; ?>" alt="">
+            <a href='<?php echo $_SESSION['surname']; ?>'><img src="<?php echo $profile_pic; ?>" alt=""></a>
             <div class="info_details">
                 <?php 
                     echo  $firstname;
                     echo ' &nbsp';
-                    echo 'Posts:'.$num_post;  
+                   echo 'Posts:'.$user->numOfPost();
                 ?>
 
           
@@ -23,7 +23,7 @@
 <hr>
             <?php 
             $post = new Posts($conn, $_SESSION['surname']);
-            echo $post->getPost();
+           echo $post->getPost();
             ?>
            
         </div>
@@ -35,3 +35,5 @@
 </html>
 
 <!-- "asset\images\profile_pic\download.png"  -->
+
+<!-- echo 'Posts:'.$num_post; -->

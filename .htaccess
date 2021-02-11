@@ -1,0 +1,3 @@
+RewriteEngine On
+
+rewriteRule  ^([a-zA-Z0-9_-]+)$ profile.php?q=$1

@@ -97,7 +97,13 @@ if (isset($_POST['reg_submitBtn'])) {
 
         if(empty($error_array)) {
             $reg_surname = $reg_firstname.'-'.$reg_lastname.mt_rand();
-            $profile_pic = "asset/images/profile_pic/download.png";
+            $randImage = rand(1,2);
+            if ($randImage == 1) {
+                $profile_pic = "asset/images/profile_pic/download.png";
+            }elseif($randImage == 2){
+                $profile_pic = "asset/images/profile_pic/download.jpg";
+            }
+           
             // $reg_password = password_hash($reg_password, PASSWORD_DEFAULT);
             $reg_password = md5($reg_password);
 
@@ -115,7 +121,7 @@ if (isset($_POST['reg_submitBtn'])) {
                 // }
                 
             }else{
-                $sql ="INSERT INTO user_table ( reg_firstname, reg_lastname, reg_email, reg_password, reg_surname, reg_date, profile_pic ) VALUES ('$reg_firstname', '$reg_lastname', '$reg_email', '$reg_password', '$reg_surname', now(), '$profile_pic')";
+                $sql ="INSERT INTO user_table ( reg_firstname, reg_lastname, reg_email, reg_password, reg_surname, reg_date, profile_pic, num_posts, num_likes, account_closed) VALUES ('$reg_firstname', '$reg_lastname', '$reg_email', '$reg_password', '$reg_surname', now(), '$profile_pic', 0, 0, 'no')";
                 $insertIntoDb = mysqli_query($conn, $sql);
                 array_push($error_array, "Registration successful<br>");
           
