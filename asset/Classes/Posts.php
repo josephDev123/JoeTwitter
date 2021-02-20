@@ -44,6 +44,7 @@ public function getPost(){
             $addedBy = $row['added_by'];
             $user_To = $row['user_to'];
             $postDate = $row['post_date'];
+            $post_id = $row['post_id'];
             
             if ($user_To == 'none') {
                 $userTo ="";
@@ -53,8 +54,20 @@ public function getPost(){
                 $userTo = "to <a href='$user_To'>$firstAndLastname</a>";
               
             }
+?>
 
-            
+                <script>
+                    function toggle(){
+                        const element = document.getElementById('comment_section');
+                        if(element.style.display = 'none'){
+                            element.style.display = 'block';
+                        }else{
+                            element.style.display = 'none';
+                        }
+                    }
+                </script>
+                
+            <?php
             $posted_date = new DateTime($postDate);
             $date = date('Y-m-d H:i:s');
             $future = new DateTime($date);
@@ -73,8 +86,14 @@ public function getPost(){
                 $userlastname = $row['reg_lastname'];
                 $userprofile_pic = $row['profile_pic'];
           
-
-                $postData .= "<div class='post_data_container'>
+                //number of comment
+                
+                $sql2 = mysqli_query($this->conn, "SELECT * FROM comment WHERE post_id = '{$post_id}' ");
+                $numCommentTopost = mysqli_num_rows($sql2);
+             
+                if ($this->user_obj->isFriends($addedBy)) {
+                    
+                $postData .= "<div class='post_data_container'  onClick='toggle()'>
                                     <div class='imgAndPostContent_wrapper'>
                                         <div class='img_wrapper'>
                                             <a href='$addedBy'><img src='$userprofile_pic' alt='$addedBy'></a>
@@ -83,13 +102,21 @@ public function getPost(){
                                         <div class='postContent_wrapper'>
                                             <p><a href=$addedBy>$userFirstname $userlastname </a>$userTo <span>$present_date</span></p>
                                             <p>$postContent</p>
+                                         
                                         </div>
+                                    </div>
+                                    
+                                    comment($numCommentTopost);
+                                   
+                                   
+                                    <div class='comment_wrapper' id='comment_section' style='display:none;'>
+                                        <iframe scrolling='' frameBorder='0' class='comment_iframe' src='comment_frame.php?post_id={$post_id}'></iframe>
                                     </div>
                 
                 
                              </div>
                              <hr>";
-                            
+              }               
                             
         }
         return $postData;

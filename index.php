@@ -5,9 +5,9 @@
         <div class="personal_detail_container">
             <a href='<?php echo $_SESSION['surname']; ?>'><img src="<?php echo $profile_pic; ?>" alt=""></a>
             <div class="info_details">
-                <?php 
-                    echo  $firstname;
-                    echo ' &nbsp';
+                 <a href="<?php echo $user->getUsername()?>"><?php echo$user->getFirstAndLastname()?></a>
+                 <?php
+                    echo ' <br>';
                    echo 'Posts:'.$user->numOfPost();
                 ?>
 
@@ -23,7 +23,7 @@
 <hr>
             <?php 
             $post = new Posts($conn, $_SESSION['surname']);
-           echo $post->getPost();
+                 echo $post->getPost();
             ?>
            
         </div>

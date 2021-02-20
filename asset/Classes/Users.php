@@ -33,6 +33,7 @@ private $user;
         
     }
 
+
     public function isClosed(){
         $surname = $this->user['reg_surname'];
         $sql = mysqli_query($this->conn, "SELECT account_closed FROM user_table WHERE reg_surname = '{$surname}' ");
@@ -50,5 +51,17 @@ private $user;
         $row =mysqli_fetch_array($sql);
         return $row['num_posts'];
     }
+
+    public function isFriends($surname){
+        $friend_array = ','.$surname.',';
+        $friends = $this->user['array_friends'];
+        if (strstr($friends, $friend_array) || $surname == $this->user['reg_surname']) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+   
 
 }
