@@ -52,6 +52,13 @@ private $user;
         return $row['num_posts'];
     }
 
+    public function numLikes(){
+        $surname = $this->user['reg_surname'];
+         $sql = mysqli_query($this->conn, "SELECT num_likes FROM user_table WHERE reg_surname = '{$surname}' ");
+        $fetch_sql = mysqli_fetch_array($sql);
+        return $fetch_sql['num_likes'];
+    }
+
     public function isFriends($surname){
         $friend_array = ','.$surname.',';
         $friends = $this->user['array_friends'];

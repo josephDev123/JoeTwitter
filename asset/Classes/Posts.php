@@ -57,8 +57,8 @@ public function getPost(){
 ?>
 
                 <script>
-                    function toggle(){
-                        const element = document.getElementById('comment_section');
+                    function toggle<?php echo $post_id; ?>(){
+                        const element = document.getElementById('comment_section<?php echo $post_id; ?>');
                         if(element.style.display = 'none'){
                             element.style.display = 'block';
                         }else{
@@ -87,16 +87,15 @@ public function getPost(){
                 $userprofile_pic = $row['profile_pic'];
           
                 //number of comment
-                
                 $sql2 = mysqli_query($this->conn, "SELECT * FROM comment WHERE post_id = '{$post_id}' ");
                 $numCommentTopost = mysqli_num_rows($sql2);
              
                 if ($this->user_obj->isFriends($addedBy)) {
                     
-                $postData .= "<div class='post_data_container'  onClick='toggle()'>
+                $postData .= "<div class='post_data_container'  onClick='javascript:toggle{$post_id}()'>
                                     <div class='imgAndPostContent_wrapper'>
-                                        <div class='img_wrapper'>
-                                            <a href='$addedBy'><img src='$userprofile_pic' alt='$addedBy'></a>
+                                        <div class='img_wrapper' >
+                                            <a href='$addedBy' ><img src='$userprofile_pic' alt='$addedBy' ></a>
                                         </div>
 
                                         <div class='postContent_wrapper'>
@@ -105,12 +104,16 @@ public function getPost(){
                                          
                                         </div>
                                     </div>
-                                    
-                                    comment($numCommentTopost);
+                                    <div style='display:flex; margin-top:20px;'>
+                                        comment($numCommentTopost)
+                                        <iframe scrolling='' frameBorder='0' class='comment_iframe1' src='like_frame.php?post_id={$post_id}'></iframe>
+                                        
+                                    </div>
                                    
                                    
-                                    <div class='comment_wrapper' id='comment_section' style='display:none;'>
+                                    <div class='comment_wrapper' id='comment_section$post_id' style='display:none;'>
                                         <iframe scrolling='' frameBorder='0' class='comment_iframe' src='comment_frame.php?post_id={$post_id}'></iframe>
+                                        
                                     </div>
                 
                 

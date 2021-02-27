@@ -11,7 +11,12 @@ if (isset($_GET['post_id'])) {
  
 }
 //submit comment
-if (isset($_POST['submit_comment'])) {
+if (isset($_POST['submit_comment'.$post_id])) {
+    if (empty($_POST['comment'])) {
+       echo '<p style="color:red;">Field is empty</p>';
+    }else{
+
+    
     $sql1 = mysqli_query($conn, "SELECT added_by, user_to FROM twitter_post WHERE post_id = $post_id");
     $query_fetch = mysqli_fetch_array($sql1);
     $Posted_to = $query_fetch['added_by'];
@@ -20,7 +25,7 @@ if (isset($_POST['submit_comment'])) {
     $comment_date = date('Y-m-d H:i:s');
     $post_id = $_GET['post_id'];
     $sql = mysqli_query($conn, "INSERT INTO comment(comment_body, comment_date, post_id, post_to, post_by, remove_post)VALUES('$comment_body', '$comment_date', $post_id, '$Posted_to', '$loggedIn', 'no')");
-    
+}
 
 }
 
@@ -40,8 +45,8 @@ if (isset($_POST['submit_comment'])) {
 
     <style>
         body{
-            background:black;
-            color:white;
+            background:white;
+            color:black;
             padding: 0px;
             margin: 0px;
             box-sizing:border-box;
@@ -87,9 +92,9 @@ if (isset($_POST['submit_comment'])) {
     </style>
 </head>
 <body>
-    <form action="comment_frame.php?post_id=<?php echo $post_id ?>" method="POST" class="coment_form">
+    <form action="comment_frame.php?post_id=<?php echo $post_id ?>" method="POST" class="coment_form" name="submit_comment<?php echo $post_id ?>">
         <textarea name="comment" class="comment_textarea"></textarea>
-        <input type="submit" name="submit_comment" value="comment" class="comment_id">
+        <input type="submit" name="submit_comment<?php echo $post_id ?>" value="comment" class="comment_id">
 
     </form>
   
@@ -139,6 +144,8 @@ if (isset($_POST['submit_comment'])) {
                 <br> 
 <?php
             }
+            }else{
+                echo '<p style="text-align:center;">NO POST</p>';
             }
 
 

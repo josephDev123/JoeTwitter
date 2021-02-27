@@ -1,3 +1,4 @@
 RewriteEngine On
 
-rewriteRule  ^([a-zA-Z0-9_-]+)$ profile.php?q=$1
+rewriteRule  ^([a-zA-Z0-9_-]+)$ profile.php?profile_username=$1
+

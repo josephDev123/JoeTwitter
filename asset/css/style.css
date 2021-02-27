@@ -64,8 +64,9 @@ header{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    background: white;
-    
+    background: black;
+    color: white;
+    min-width: 310px;
 
 }
 
@@ -80,6 +81,7 @@ header{
    padding: 10px;
    border-radius: 5px;
    max-height: 120px;
+   color: black;
 }
 
 .personal_detail_container img{
@@ -89,14 +91,14 @@ header{
 }
 
 .newsfeed_detail_right{
-    flex: 3 0 310px;
+    flex: 3 0 0px;
     margin-top: 10px;
     box-shadow: inset 0px 0px 4px white;
     padding: 10px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-
+    min-width: 280px;
 }
 
 
@@ -105,6 +107,8 @@ header{
 .newsfeed_form{
     display: flex;
     flex-wrap: wrap;
+  
+    
    
 
 }
@@ -116,12 +120,14 @@ header{
    border: none;
    background-color: #183153;
    margin-left: 10px;
-   flex: 1 1;
+   /* flex: 1 0 20px; */
+ 
+    padding: 5px;
 }
 
 .newsfeed_form textarea{
-    flex: 8 1;
-    height: 40px;
+    min-width: 70%;
+    height: 50px;
     border-radius: 5px;
     font-size: 15px;
 }
@@ -146,7 +152,7 @@ header{
 }
 
 .img_wrapper img{
-    border-radius: 5px;
+    border-radius: 50%;
     width: 70%;
     height: 90%;
 }
@@ -154,7 +160,7 @@ header{
 
 .postContent_wrapper{
     flex: 7 1 400px;
-    color: black;
+    
     flex-wrap: wrap;
 }
 
@@ -187,4 +193,17 @@ text-decoration: none;
     width: 100%;
     padding-top: 0px;
     margin-top: 0px;
+}
+
+.comment_iframe1{
+    height: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+  
+}
+
+
+.comment_iframe1:hover{
+    cursor: pointer;
+  
 }
