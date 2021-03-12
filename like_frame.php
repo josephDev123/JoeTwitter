@@ -60,15 +60,34 @@ if (isset($_POST['unlike'.$post_id])) {
             height: 20px;
            
         }
+
+        .like{
+       
+        background: none;
+        color: white;
+        border: none;
+        }
         
         .like:hover{
         cursor: pointer;
-  
+        background: none;
+        color: white;
+        border: none;
+        }
+
+
+        .unlike{
+        
+        background: none;
+        color: white;
+        border: none;
         }
 
         .unlike:hover{
         cursor: pointer;
-  
+        background: none;
+        color: white;
+        border: none;
         }
 
     </style>

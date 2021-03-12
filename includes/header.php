@@ -52,7 +52,7 @@ if (isset($_POST['post_submit'])) {
                 <li><a href='<?php echo $_SESSION['surname']; ?>' style='color:green; text-decoration:none'><?php echo $_SESSION['firstname']; ?></a></li>
                 <li><i class="fas fa-envelope-open-text"></i></li>
                 <li><i class="fas fa-house-user"></i></li>
-                <li><i class="far fa-bell"></i></li>
+                <li><a href="responseFriend.php"><i class="fas fa-bell"></i></a></li>
                 <li><i class="fal fa-user-cog"></i></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-circle-right"></i></a></li>
              

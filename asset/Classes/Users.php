@@ -69,6 +69,53 @@ private $user;
         }
     }
 
-   
+   public function didRecieveRequest($user_to){
+        $user_from = $this->user['reg_surname'];
+        $sql = mysqli_query($this->conn, "SELECT * FROM friend_Request WHERE user_from = '$user_from' AND user_to = '$user_to' ");
+        $check_sql = mysqli_num_rows($sql);
+        if($check_sql > 0){
+            return true;
+        }else{
+            return false; 
+        }
+   }
+
+   public function didSendRequest($user_to){
+    $user_from = $this->user['reg_surname'];
+    $sql = mysqli_query($this->conn, "SELECT * FROM friend_Request WHERE user_from = '$user_from' AND user_to = '$user_to' ");
+    $check_sql = mysqli_num_rows($sql);
+    if($check_sql > 0){
+        return true;
+    }else{
+        return false; 
+    }
+}
+
+public function removeFriend($friend_to_remove){
+    $remove_by = $this->user['reg_surname'];
+    $sql = mysqli_query($this->conn, "SELECT * FROM user_table WHERE reg_surname = '$friend_to_remove'");
+    $sql_fetch = mysqli_fetch_array($sql);
+    $friends = $sql_fetch['array_friends'];
+
+    //i removed friend
+    $myFriends = $this->user['array_friends'];
+    $removeFriend= str_replace($friend_to_remove.',', '', $myFriends);
+    $update_sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = '$removeFriend' WHERE reg_surname = '$remove_by'");
+
+// automatically i am remove from the person i removed friend list
+    $removeFriend= str_replace($remove_by.',', '', $friends);
+    $update_sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = '$removeFriend' WHERE reg_surname = '$friend_to_remove'");
 
 }
+
+public function addFriends($friend_to_add){
+    $user_from = $this->user['reg_surname'];
+       $sql = mysqli_query($this->conn, "INSERT INTO friend_request(user_from, user_to) VALUES('$user_from', '$friend_to_add')"); 
+    
+}
+
+}
+
+
+//     $myFriends = $this->user['array_friends'];
+//    $sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = CONCAT($myFriends, ','.$friend_to_add) WHERE reg_surname = '$added_by'");
