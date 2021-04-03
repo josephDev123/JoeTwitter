@@ -108,14 +108,22 @@ public function removeFriend($friend_to_remove){
 
 }
 
-public function addFriends($friend_to_add){
+public function addToFriendRequest($friend_to_add){
     $user_from = $this->user['reg_surname'];
        $sql = mysqli_query($this->conn, "INSERT INTO friend_request(user_from, user_to) VALUES('$user_from', '$friend_to_add')"); 
     
 }
 
+public function addFriend($finally_friend_to_add){
+    $user_from = $this->user['reg_surname'];
+    $myFriends = $this->user['array_friends'];
+   $sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = CONCAT('$myFriends', '$finally_friend_to_add,') WHERE reg_surname = '$user_from'");
+//add the user that accept your friend request as friend
+   $sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = CONCAT(array_friends, '$user_from,') WHERE reg_surname = '$finally_friend_to_add'");
+
+   $sql1 = mysqli_query($this->conn, "DELETE FROM friend_request WHERE user_from = '$user_from' AND user_to ='$finally_friend_to_add'");
+}
+
 }
 
 
-//     $myFriends = $this->user['array_friends'];
-//    $sql = mysqli_query($this->conn, "UPDATE user_table SET array_friends = CONCAT($myFriends, ','.$friend_to_add) WHERE reg_surname = '$added_by'");

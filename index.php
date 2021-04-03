@@ -23,7 +23,7 @@
                 <input type="submit" name="post_submit" value="post" style="cursor:pointer">
             </form>
 <hr>
-<hr>
+
             <?php 
             $post = new Posts($conn, $_SESSION['surname']);
                  echo $post->getPost();
@@ -32,11 +32,7 @@
         </div>
 
     </div>
+    <?php
 
-
-</body>
-</html>
-
-<!-- "asset\images\profile_pic\download.png"  -->
-
-<!-- echo 'Posts:'.$num_post; -->
+    //footer
+include 'includes/footer.php';

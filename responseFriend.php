@@ -9,7 +9,9 @@
 //from profile url
 if(isset($_GET['profile_username'])){
    $username = $_GET['profile_username']; 
+   
 }
+
 
 
 ?>
@@ -27,15 +29,29 @@ if(isset($_GET['profile_username'])){
       }else{
             while($row = mysqli_fetch_array($sql)){
                $request_from = $row['user_from'];
+               $user_to_add = $row['user_to'];
                $userWhoSentRequest = new Users($conn, $request_from);
                echo "<h3>". $userWhoSentRequest->getFirstAndLastname()." sent friend request</h3>";
+
+               if(isset($_POST['accept'.$request_from])){
+                  $add_friend_obj = new Users($conn, $request_from);
+                  $add_friend_obj->addFriend($user_to_add);
+                  header('Location: responseFriend.php');
+                
+               }
 ?>
                <form action="responseFriend.php" method="POST">
-                  <input type="submit" name="accept" value="Accept" class="accept">
-                  <input type="submit" name="ignore" value="Ignore" class="ignore">
+                  <input type="submit" name="accept<?php echo $request_from;?>" value="Accept" class="accept">
+                  <input type="submit" name="ignore<?php echo $request_from;?>" value="Ignore" class="ignore">
                </form>
             <?php
             }
       }
       ?>
 </div>
+
+
+
+<?php
+//footer
+include 'includes/footer.php';

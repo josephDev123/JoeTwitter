@@ -133,7 +133,7 @@ header{
 }
 
 .post_data_container{
-    margin-top: 10px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
   
@@ -267,7 +267,7 @@ text-decoration: none;
 }
 
 .danger{
-    background-color: #F8D7DA;
+    background-color: #883139;
     padding: 10px;
   cursor: pointer;
 }
@@ -279,7 +279,7 @@ text-decoration: none;
 }
 
 .success{
-    background-color: #D4EDDA;
+    background-color: #a8e1b5;
     padding: 10px;
     cursor: pointer;
 }
