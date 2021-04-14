@@ -25,6 +25,29 @@ private $user;
         return $row['reg_surname'];
     }
 
+
+    public function mutialFriend($logginSurname, $username){
+        $sql = mysqli_query($this->conn, "SELECT array_friends FROM user_table WHERE reg_surname = '$logginSurname'" );
+        $num_rows = mysqli_num_rows($sql);
+        if($num_rows > 0){
+            $split_result = mysqli_fetch_array($sql);
+            $friend_result = $split_result['array_friends'];
+            $plit_array_result = explode(',', $friend_result);
+        } 
+
+        $sql2 = mysqli_query($this->conn, "SELECT array_friends FROM user_table WHERE reg_surname = '$username'" );
+        $num_rows2 = mysqli_num_rows($sql2);
+        if($num_rows2 > 0){
+            $split_result2 = mysqli_fetch_array($sql2);
+            $friend_result2 = $split_result2['array_friends'];
+            $plit_array_result2 = explode(',', $friend_result2);
+        } 
+
+        $mutial_friend = array_intersect($plit_array_result, $plit_array_result2);
+        $mutial_friend_lenght = count($mutial_friend);
+        return $mutial_friend_lenght;
+    }
+
     public function getProfilePic(){
         $surname = $this->user['reg_surname'];
         $sql = mysqli_query($this->conn, "SELECT profile_pic FROM user_table WHERE reg_surname = '{$surname}'");

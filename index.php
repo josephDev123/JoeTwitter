@@ -12,6 +12,8 @@
                    echo ' <br>';
                    echo 'Likes:'.$user->numLikes();
                 ?>
+                <br>
+               
 
           
             </div>
@@ -25,7 +27,6 @@
 <hr>
 
             <?php 
-            $post = new Posts($conn, $_SESSION['surname']);
                  echo $post->getPost();
             ?>
            

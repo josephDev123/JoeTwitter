@@ -303,3 +303,22 @@ text-decoration: none;
     justify-content: center;
     align-items: center;
 }
+
+
+/* message session */
+
+.load_message{
+    display: flex;
+    flex-direction: column;
+}
+
+.load_message .green{
+    background-color: rgb(224, 233, 224);
+    display: flex;
+    flex-direction: column;
+ 
+    padding: 5px;
+   
+    
+    
+}

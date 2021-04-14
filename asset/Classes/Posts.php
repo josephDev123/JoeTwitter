@@ -53,7 +53,7 @@ public function getPost(){
             if ($user_To == 'none') {
                 $userTo ="";
             }else{
-                $newUser_obj = new Users($conn, $user_To);
+                $newUser_obj = new Users($this->conn, $user_To);
                 $firstAndLastname = $newUser_obj->getFirstAndLastname();
                 $userTo = "to <a href='$user_To'>$firstAndLastname</a>";
               
@@ -141,20 +141,18 @@ public function getPost(){
                         $(document).ready(function(){
 
                             $("#post_delete<?php echo $post_id ?> ").on('click', ()=>{
-
-                              $.ajax({
-                                  type:'POST',
-                                  url: "includes/delete_post.php",
-                                  data:{
-                                    post_id:<?php echo $post_id; ?>
-                                  },
-                                  success:(result)=>{
-                                      console.log(result);
-                                  },
-                                  error: (err)=>{
-                                      console.log(err);
-                                  }
-                              })
+                                $attr = $('#post_delete<?php echo $post_id ?> ').attr('name')
+                                
+                             $.ajax({
+                           type:'POST',
+                            url: "includes/delete_post.php",
+                            data:{
+                              post_id: $attr
+                             },
+                             success:()=>{
+                               location.reload();  
+                             }
+                        }) 
                             })
 
 
@@ -170,29 +168,29 @@ public function getPost(){
                 return $postData;
         }
 
-
+        
 
 
      public function getProfilePost($profileUsername){
 
-            $postData = "";
+            $profileData = "";
             $sql = mysqli_query($this->conn, "SELECT * FROM twitter_post WHERE post_delete = 'no' AND (added_by = '{$profileUsername}' OR user_to ='{$profileUsername}') ORDER BY post_id DESC ");
 
             while($row = mysqli_fetch_array($sql)){
             $postContent = $row['post_content'];
             $addedBy = $row['added_by'];
-            // $user_To = $row['user_to'];
+            $user_To = $row['user_to'];
             $postDate = $row['post_date'];
             $post_id = $row['post_id'];
             
-            // if ($user_To == 'none') {
-            //     $userTo ="";
-            // }else{
-            //     $newUser_obj = new Users($conn, $user_To);
-            //     $firstAndLastname = $newUser_obj->getFirstAndLastname();
-            //     $userTo = "to <a href='$user_To'>$firstAndLastname</a>";
+            if ($user_To == 'none') {
+                $userTo ="";
+            }else{
+                $newUser_obj = new Users($conn, $user_To);
+                $firstAndLastname = $newUser_obj->getFirstAndLastname();
+                $userTo = "to <a href='$user_To'>$firstAndLastname</a>";
               
-            // }
+            }
             ?>  
 
                 <script>
@@ -233,9 +231,8 @@ public function getPost(){
              
 
                 //delete button
-                $close_button = '';
                 if ($addedBy === $this->user_obj->getUsername()) {
-                    $close_button = "<button id='post_delete$post_id' class='btn btn-danger'>X</button>";
+                    $close_button = "<button id='post_delete$post_id' name='$post_id' class='btn btn-danger'>X</button>";
                 }else{
                     $close_button ="";
                 }
@@ -243,7 +240,7 @@ public function getPost(){
 
                 if($this->user_obj->isFriends($addedBy)) {
                     
-                $postData .= "<div class='post_data_container'  onClick='javascript:toggle{$post_id}()'>
+                $profileData .= "<div class='post_data_container'  onClick='javascript:toggle{$post_id}()'>
                                     <div class='imgAndPostContent_wrapper'>
                                         <div class='img_wrapper' >
                                             <a href='$addedBy'><img src='$userprofile_pic' alt='$addedBy' ></a>
@@ -270,27 +267,38 @@ public function getPost(){
                      
                    
                      }    
-                                            
-                     ?>
+
+                    ?>
+                     
                      <!-- select the delete element  -->
                      <script>
-                  $(document).ready(function(){
+                        $(document).ready(function(){
 
-                    $("#post_delete<?php echo $post_id ?> ").on('click', ()=>{
-                        console.log('her');
-                    })
+                            $("#post_delete<?php echo $post_id ?> ").on('click', ()=>{
+                                $attr = $('#post_delete<?php echo $post_id ?> ').attr('name')
+                                
+                             $.ajax({
+                           type:'POST',
+                            url: "includes/delete_post.php",
+                            data:{
+                              post_id: $attr
+                             },
+                             success:()=>{
+                               location.reload();  
+                             }
+                        }) 
+                            })
 
 
 
-                  })
+                        })
 
-                     </script>
-
-                     <?php
+                     </script>                       
                     
+                    <?php
                 }
               
-                return $postData;
+                return $profileData;
         }
 
 }

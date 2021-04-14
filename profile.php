@@ -52,7 +52,8 @@ if (isset($_POST['addFriend'])) {
             <div class="profile_details">
                 <h4>Posts: <?php echo $num_post ?></h4>
                 <h4>Friends: <?php echo $num_friends ?></h4>
-              
+                
+                Mutial friends: <?php echo $user->mutialFriend( $_SESSION['surname'], $username ); ?>
             </div>
             <hr>
             
@@ -124,6 +125,38 @@ if (isset($_POST['addFriend'])) {
   </div>
 </div>
 
+<script>
+//  send post from profile page to postFromProfile.php to submit post.
+$(document).ready(function(){
+
+    $('#sendpostfromProfile').on('click', ()=>{
+      
+      $.ajax({
+        type:"POST",
+        url: "includes/postFromProfile.php",
+        data:{
+          text: $('#message_text').val(),
+          userTo: "<?php echo $username; ?>",
+          postBy:  "<?php echo $loggedIn; ?>"
+        },
+ 
+        success:()=>{
+          location.reload();
+        },
+ 
+        fail:(error)=>{
+         console.log(error);
+       }
+ 
+      })
+      
+ 
+    })
+
+
+ })
+
+ </script>
 
 
    <!-- //footer -->

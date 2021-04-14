@@ -1,7 +1,7 @@
 <?php 
-include '../asset/classes/Posts.php';
-include '../asset/classes/Users.php';
 include '../database/database_config.php';
+include '../asset/classes/Users.php';
+include '../asset/classes/Posts.php';
 
 if (isset($_POST['text'])) {
     $profilePost = $_POST['text'];
