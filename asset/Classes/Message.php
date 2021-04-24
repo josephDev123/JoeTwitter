@@ -60,7 +60,7 @@ class Messages{
                     // }
 
                     $div_data = ($user_to != $userLogedin)? "<div class='green'>":"<div class='yellow'>";
-                    $data .= $div_data.$body."</div>";
+                    $data .= $div_data.$body."</div><br><br>";
                 }
                   
                     return $data;
@@ -68,9 +68,78 @@ class Messages{
                     
             }
 
+            public function lastestGetMessage($userloggedIn, $userToUsername){
+                $userloggedIn = $this->user_obj->getUsername();
+                $details =[];
+                $sql = mysqli_query($this->conn, "SELECT * FROM message WHERE (user_to ='{$userloggedIn}' AND user_from ='{$userToUsername}') OR (user_to ='{$userToUsername}' AND user_from ='{$userloggedIn}')  ORDER BY id DESC ");
+                while($row = mysqli_fetch_array($sql)){
+                    $sent_by = ($row['user_to'] == $userloggedIn)? 'They said':'You said';
+                    $message_body = $row['message_body'];
+                    $message_date = $row['message_date'];
 
-}
+                    $posted_date = new DateTime($message_date);
+                    $date = date('Y-m-d H:i:s');
+                    $future = new DateTime($date);
+                    $interval = date_diff($posted_date, $future);
+                    $present_date = $interval->format('%m Month ago , %d days ago, %H hrs ago, %i min ago, %s sec ago');
 
+                    array_push($details, $sent_by);
+                    array_push($details, $message_body);
+                    array_push($details, $present_date);
+                }
+
+            }
+
+
+            public function get_conversational_list(){
+                $userloggedIn = $this->user_obj->getUsername();
+                $convoc_div_string = '';
+                $usersArray =[];
+                $sql = mysqli_query($this->conn, "SELECT user_to, user_from FROM message WHERE user_to ='{$userloggedIn}' OR user_from ='{$userloggedIn}' ORDER BY id DESC LIMIT 8");
+                while($row = mysqli_fetch_array($sql)){
+                    $users = ( $row['user_to'] !== $userloggedIn)? $row['user_to']: $row['user_from'];
+                    if (!in_array($users, $usersArray)) {
+                       array_push($usersArray, $users);
+                    }
+                }
+
+                foreach( $usersArray as $userToUsername){
+                    $message_to_obj = new Users($this->conn, $userToUsername);
+
+                }
+            
+                $latest_message_detail = $this->lastestGetMessage($userloggedIn, $userToUsername);
+
+                //use_to first and lastname
+                $fist_lastname = $message_to_obj->getFirstAndLastname();
+
+               $dot = (strlen($latest_message_detail[1]) > 12)? '...':'';
+
+               if (strlen($latest_message_detail[1] ) > 12) {
+                  $message = str_split($latest_message_detail[1], 12);
+                  $message =$message.$dot;
+               }else{
+                $message = $latest_message_detail[1];
+               }
+             
+
+               $convoc_div_string .=  "<a href='message.php?u='.$userToUsername>
+                    <div class='name_date_wrapper'>
+                        <h3>$fist_lastname </h3> <span>$latest_message_detail[2] </span>
+                    </div>
+
+                    <div class='message_wrapper'>
+                        <h3> $latest_message_detail[0]</h3> <span> $message</span>
+                    </div>
+                    
+               </a> ";
+               echo $convoc_div_string;
+              
+               return $convoc_div_string;
+            }
+
+
+ }
 
 
 

@@ -15,23 +15,36 @@ if (isset($_GET['u'])) {
 
 <div class="newsfeed_container">
         <div class="personal_detail_container">
-            <a href='<?php echo $_SESSION['surname']; ?>'><img src="<?php echo $profile_pic; ?>" alt=""></a>
-            <div class="info_details">
-                 <a href="<?php echo $user->getUsername()?>"><?php echo $user->getFirstAndLastname()?></a>
-                 <?php
+            
+            <div class="info_details" style='display:flex'>
+                <a href='<?php echo $_SESSION['surname']; ?>'><img src="<?php echo $profile_pic; ?>" alt=""></a>
+                
+                <div>
+                    <a href="<?php echo $user->getUsername()?>"><?php echo $user->getFirstAndLastname()?></a>
+                    <?php
+                        echo ' <br>';
+                    echo 'Posts:'.$user->numOfPost();
                     echo ' <br>';
-                   echo 'Posts:'.$user->numOfPost();
-                   echo ' <br>';
-                   echo 'Likes:'.$user->numLikes();
-                ?>
-                <br>
+                    echo 'Likes:'.$user->numLikes();
+                    ?>
+                    <br>
+                </div>
             </div>
+
+
+            <div class="convo_list_container" style="color:white;">
+                <h3>Conversational List</h3>
+               <?php echo $message_obj->get_conversational_list(); ?>
+
+            </div>
+
+
         </div>
 
         <div class="newsfeed_detail_right">
         <?php
            if($user_to != 'new'){
-               $user_obj = new Users($conn, $user_to);
+               $userTo_obj = new Users($conn, $user_to);
 
                if (isset($_POST['send_message'])) {
                  if (isset($_POST['message'])) {
@@ -43,7 +56,7 @@ if (isset($_GET['u'])) {
 
                
                ?>
-               <h5> You and  <a href="<?php echo $user_to ?>"> <?php echo $user_obj->getFirstAndLastname(); ?> </a> </h5>
+               <h5> You and  <a href="<?php echo $user_to ?>"> <?php echo $userTo_obj->getFirstAndLastname(); ?> </a> </h5>
                <?php
            }
            ?>
@@ -66,8 +79,8 @@ if (isset($_GET['u'])) {
            }else{
                ?>
                 <form action="" method="POST">
-                 <textarea name="message" id="" cols="" rows=""></textarea>
-                 <input type="submit" name ="send_message" value="send message">
+                 <textarea name="message" id="message_box" cols="" rows=""></textarea>
+                 <input type="submit" name ="send_message" id="send_message" value="send message">
                             
                 </form>
                <?php

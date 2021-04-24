@@ -76,12 +76,14 @@ header{
     margin-top: 10px;
     background: white;
     display: flex;
+    flex-direction: column;
     /* border: 2px solid white; */
     box-shadow: inset 0px 0px 4px rgb(135, 134, 134);
    padding: 10px;
    border-radius: 5px;
    max-height: 120px;
    color: black;
+   
 }
 
 .personal_detail_container img{
@@ -307,18 +309,39 @@ text-decoration: none;
 
 /* message session */
 
-.load_message{
+/* .load_message{
     display: flex;
     flex-direction: column;
-}
+} */
 
 .load_message .green{
     background-color: rgb(224, 233, 224);
-    display: flex;
-    flex-direction: column;
- 
+    float: right;
     padding: 5px;
-   
+    border-radius: 5px;
     
-    
+}
+
+.load_message .yellow{
+    background-color: rgb(224, 233, 224);
+    float: left;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#message_box{
+    display: block;
+    width: 100%;
+    border: 0px;
+    border-radius: 5px;
+}
+
+#send_message{
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+
+.convo_list_container{
+    margin-top: 20px;
 }
