@@ -78,6 +78,7 @@ class Messages{
                     $message_date = $row['message_date'];
 
                     $posted_date = new DateTime($message_date);
+                    
                     $date = date('Y-m-d H:i:s');
                     $future = new DateTime($date);
                     $interval = date_diff($posted_date, $future);
@@ -87,7 +88,7 @@ class Messages{
                     array_push($details, $message_body);
                     array_push($details, $present_date);
                 }
-
+                return $details;
             }
 
 
@@ -105,9 +106,9 @@ class Messages{
 
                 foreach( $usersArray as $userToUsername){
                     $message_to_obj = new Users($this->conn, $userToUsername);
-
+                    $usertoprofile = $message_to_obj->getProfilePic();
                 }
-            
+               
                 $latest_message_detail = $this->lastestGetMessage($userloggedIn, $userToUsername);
 
                 //use_to first and lastname
@@ -117,29 +118,42 @@ class Messages{
 
                if (strlen($latest_message_detail[1] ) > 12) {
                   $message = str_split($latest_message_detail[1], 12);
-                  $message =$message.$dot;
+                  $message =$message[0].$dot;
                }else{
                 $message = $latest_message_detail[1];
                }
-             
+            
 
-               $convoc_div_string .=  "<a href='message.php?u='.$userToUsername>
+               $convoc_div_string .= "<a href=message.php?u=$userToUsername>  
+                    <img src=$usertoprofile alt=''>
                     <div class='name_date_wrapper'>
                         <h3>$fist_lastname </h3> <span>$latest_message_detail[2] </span>
                     </div>
-
                     <div class='message_wrapper'>
                         <h3> $latest_message_detail[0]</h3> <span> $message</span>
                     </div>
-                    
+                
                </a> ";
-               echo $convoc_div_string;
+          
+              return $convoc_div_string;
+           
               
-               return $convoc_div_string;
-            }
+            
+
+        }
 
 
  }
 
 
 
+//  "<a href='message.php?u='.$userToUsername>
+//  <div class='name_date_wrapper'>
+//      <h3>$fist_lastname </h3> <span>$latest_message_detail[2] </span>
+//  </div>
+
+//  <div class='message_wrapper'>
+//      <h3> $latest_message_detail[0]</h3> <span> $message</span>
+//  </div>
+ 
+// </a> ";

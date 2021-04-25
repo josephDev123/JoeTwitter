@@ -32,7 +32,7 @@ if (isset($_GET['u'])) {
             </div>
 
 
-            <div class="convo_list_container" style="color:white;">
+            <div class="convo_list_container" style="color:black; background-color:white;">
                 <h3>Conversational List</h3>
                <?php echo $message_obj->get_conversational_list(); ?>
 
