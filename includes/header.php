@@ -39,7 +39,7 @@ if (isset($_POST['post_submit'])) {
     <link rel="stylesheet" href="asset/css/style.css">
     <!-- <script src="https://use.fontawesome.com/288f23abfe.js"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-
+   
     <script src="asset\js\jquery.js"></script>
     <title>Home</title>
 </head>
@@ -56,7 +56,7 @@ if (isset($_POST['post_submit'])) {
         <div class="header_icons">
             <ul>
                 <li><a href='<?php echo $_SESSION['surname']; ?>' style='color:green; text-decoration:none'><?php echo $_SESSION['firstname']; ?></a></li>
-                <li><i class="fas fa-envelope-open-text"></i></li>
+                <li> <a href='message.php'><i class="fas fa-envelope-open-text"></i></a></li>
                 <li><a href="index.php"><i class="fas fa-house-user"></i></a></li>
                 <li><a href="responseFriend.php"><i class="fas fa-bell"></i></a></li>
                 <li><i class="fal fa-user-cog"></i></li>

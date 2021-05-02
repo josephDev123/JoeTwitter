@@ -15,17 +15,19 @@ class Messages{
            $sql = mysqli_query($this->conn, "SELECT user_to, user_from FROM message WHERE user_to = '{$userLogedin}' OR user_from='{$userLogedin}' ORDER BY id DESC LIMIT 1 ");
             if(mysqli_num_rows($sql) == 0){
                 return FALSE;
-            }
-            while($row = mysqli_fetch_array($sql)){
-                $user_to = $row['user_to'];
-                $user_from = $row['user_from'];
-    
-                if ($user_to != $userLogedin) {
-                    return $user_to;
-                }else{
-                    return $user_from;
+            }else{
+                while($row = mysqli_fetch_array($sql)){
+                    $user_to = $row['user_to'];
+                    $user_from = $row['user_from'];
+        
+                    if ($user_to != $userLogedin) {
+                        return $user_to;
+                    }else{
+                        return $user_from;
+                    }
                 }
             }
+           
            
         }
 
@@ -44,7 +46,7 @@ class Messages{
                 $userLogedin = $this->user_obj->getUsername();
                 $sql = mysqli_query($this->conn, "UPDATE message SET viewed = 'yes' WHERE user_to = '{$userLogedin}'");
 
-                $sql2 = mysqli_query($this->conn, "SELECT * FROM message WHERE user_to = ('{$userLogedin}' AND user_from = '{$userTo}') OR user_to = ('{$userTo}' AND user_from = '{$userLogedin}' )  AND message_delete = 'no' ORDER BY id DESC ");
+                $sql2 = mysqli_query($this->conn, "SELECT * FROM message WHERE (user_to = '{$userLogedin}' AND user_from = '{$userTo}') OR (user_to = '{$userTo}' AND user_from = '{$userLogedin}' )  AND message_delete = 'no' ORDER BY id  ");
 
                
                  
@@ -52,13 +54,6 @@ class Messages{
                     $body = $row['message_body'];
                     $user_to = $row['user_to'];
                     $user_from = $row['user_from'];
-                    
-                    // if ($user_to != $userLogedin) {
-                    //     return $user_to;
-                    // }else{
-                    //     return $user_from;
-                    // }
-
                     $div_data = ($user_to != $userLogedin)? "<div class='green'>":"<div class='yellow'>";
                     $data .= $div_data.$body."</div><br><br>";
                 }
@@ -82,7 +77,7 @@ class Messages{
                     $date = date('Y-m-d H:i:s');
                     $future = new DateTime($date);
                     $interval = date_diff($posted_date, $future);
-                    $present_date = $interval->format('%m Month ago , %d days ago, %H hrs ago, %i min ago, %s sec ago');
+                    $present_date = $interval->format(' %d days ago, %H hrs ago, %i min ago');
 
                     array_push($details, $sent_by);
                     array_push($details, $message_body);
@@ -107,14 +102,16 @@ class Messages{
                 foreach( $usersArray as $userToUsername){
                     $message_to_obj = new Users($this->conn, $userToUsername);
                     $usertoprofile = $message_to_obj->getProfilePic();
-                }
+                    $latest_message_detail = $this->lastestGetMessage($userloggedIn, $userToUsername);
+                    $fist_lastname = $message_to_obj->getFirstAndLastname();
+                
                
-                $latest_message_detail = $this->lastestGetMessage($userloggedIn, $userToUsername);
+                // $latest_message_detail = $this->lastestGetMessage($userloggedIn, $userToUsername);
 
                 //use_to first and lastname
-                $fist_lastname = $message_to_obj->getFirstAndLastname();
+               
 
-               $dot = (strlen($latest_message_detail[1]) > 12)? '...':'';
+               $dot = (strlen($latest_message_detail[1]) > 15)? '...':'';
 
                if (strlen($latest_message_detail[1] ) > 12) {
                   $message = str_split($latest_message_detail[1], 12);
@@ -125,16 +122,22 @@ class Messages{
             
 
                $convoc_div_string .= "<a href=message.php?u=$userToUsername>  
+               <div style='border:2px solid gray; padding:15px; border-radius:5px;' >
                     <img src=$usertoprofile alt=''>
                     <div class='name_date_wrapper'>
-                        <h3>$fist_lastname </h3> <span>$latest_message_detail[2] </span>
+                        <h5>$fist_lastname </h5> <span>$latest_message_detail[2] </span>
                     </div>
                     <div class='message_wrapper'>
-                        <h3> $latest_message_detail[0]</h3> <span> $message</span>
+                    <span><strong> $latest_message_detail[0]</strong></span>:  <span> $message</span>
                     </div>
                 
-               </a> ";
-          
+               </a> 
+               </div>
+               <br>   <br>
+               "
+               ;
+             
+            }
               return $convoc_div_string;
            
               

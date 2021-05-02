@@ -81,7 +81,8 @@ header{
     box-shadow: inset 0px 0px 4px rgb(135, 134, 134);
    padding: 10px;
    border-radius: 5px;
-   max-height: 120px;
+   flex-wrap: wrap;
+   /* max-height: 120px; */
    color: black;
    
 }
@@ -344,4 +345,6 @@ text-decoration: none;
 
 .convo_list_container{
     margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
 }

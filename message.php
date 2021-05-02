@@ -32,9 +32,16 @@ if (isset($_GET['u'])) {
             </div>
 
 
-            <div class="convo_list_container" style="color:black; background-color:white;">
+            <div class="convo_list_container" style="color:black; background-color:white; ">
                 <h3>Conversational List</h3>
-               <?php echo $message_obj->get_conversational_list(); ?>
+               <?php 
+               if($message_obj->get_conversational_list()){
+                   echo $message_obj->get_conversational_list();
+                 
+               }else{
+                   echo 'New Message';
+               }
+                 ?>
 
             </div>
 
@@ -53,23 +60,14 @@ if (isset($_GET['u'])) {
                    $message_obj->sendMessage($message, $user_to);
                 }
                }
-
-               
-               ?>
-               <h5> You and  <a href="<?php echo $user_to ?>"> <?php echo $userTo_obj->getFirstAndLastname(); ?> </a> </h5>
-               <?php
+              
            }
-           ?>
+          
 
-          <div class="load_message">
-          <?php echo $message_obj->getMessage($user_to); ?>
-          </div>
-
-<?php
            if($user_to == 'new'){
                 ?>
                 <form action="" method="POST">
-                    To: <input type="text" >
+                    To: <input type="text" name='q' oninput= "listOfUsersToMessage(event)">
                 
                 </form>
                 <div class='load_search'>
@@ -78,6 +76,11 @@ if (isset($_GET['u'])) {
                 <?php
            }else{
                ?>
+
+            <div class="load_message">
+            <h5> You and  <a href="<?php echo $user_to ?>"> <?php echo $userTo_obj->getFirstAndLastname(); ?> </a> </h5>
+                <?php echo $message_obj->getMessage($user_to); ?>
+          </div>
                 <form action="" method="POST">
                  <textarea name="message" id="message_box" cols="" rows=""></textarea>
                  <input type="submit" name ="send_message" id="send_message" value="send message">
@@ -90,4 +93,32 @@ if (isset($_GET['u'])) {
 
     </div>
 
+
+           <script>
    
+           function listOfUsersToMessage(event){
+            //    console.log(event.target.value);
+            fetch(`loadsearchmessage.php`,{
+                method:'POST',
+                mode: "same-origin",
+                credentials: "same-origin",
+                // header:{
+                //     'Content-Type': "text/plain"
+                // },
+                body:{
+                    content: event.target.value,
+                    user_from: '<?php echo $_SESSION['surname']; ?> '
+                },
+            }).then(response =>{
+                response.text();
+            })
+            .then(data =>{
+                document.querySelector('.load_search').innerHTML = data;
+            })
+            
+           }
+
+           </script>
+ <?php
+        // include "includes/footer.php";
+ ?>
