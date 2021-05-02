@@ -97,28 +97,18 @@ if (isset($_GET['u'])) {
            <script>
    
            function listOfUsersToMessage(event){
-            //    console.log(event.target.value);
-            fetch(`loadsearchmessage.php`,{
-                method:'POST',
-                mode: "same-origin",
-                credentials: "same-origin",
-                // header:{
-                //     'Content-Type': "text/plain"
-                // },
-                body:{
-                    content: event.target.value,
-                    user_from: '<?php echo $_SESSION['surname']; ?> '
-                },
-            }).then(response =>{
-                response.text();
-            })
-            .then(data =>{
-                document.querySelector('.load_search').innerHTML = data;
-            })
-            
+
+               $.post('loadsearchmessage.php', {
+                   content:event.target.value,
+                   user_from: '<?php echo $_SESSION['surname']; ?>'
+               },
+                (data)=>{
+                   $('.load_search').html(data)
+               })
            }
 
            </script>
  <?php
         // include "includes/footer.php";
  ?>
+
