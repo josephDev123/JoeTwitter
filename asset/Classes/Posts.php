@@ -98,7 +98,7 @@ public function getPost(){
              
                 $close_button = '';
                 if ($addedBy === $this->user_obj->getUsername()) {
-                    $close_button = "<button id='post_delete$post_id' name='$post_id' class='btn btn-danger'>X</button>";
+                    $close_button = "<button id='post_delete$post_id' name='$post_id' class='btn btn-danger btn-sm'>X</button>";
                 }else{
                     $close_button ="";
                 }
@@ -106,15 +106,18 @@ public function getPost(){
 
                 if($this->user_obj->isFriends($addedBy)) {
                     
-                $postData .= "<div class='post_data_container'  onClick='javascript:toggle{$post_id}()'>
+                $postData .= "<div style='border:1px solid gray; padding:15px;' class='post_data_container'  onClick='javascript:toggle{$post_id}()'>
                                     <div class='imgAndPostContent_wrapper'>
                                         <div class='img_wrapper' >
                                             <a href='$addedBy' ><img src='$userprofile_pic' alt='$addedBy' ></a>
                                         </div>
 
                                         <div class='postContent_wrapper'>
-                                            <p><a href=$addedBy>$userFirstname $userlastname </a>$userTo <span>$present_date</span> <span>$close_button</span></p>
-                                            <p>$postContent</p>
+                                            <p><a href=$addedBy>$userFirstname $userlastname </a>$userTo <span>$present_date</span></p> 
+                                           
+                                                 <div style='display:flex; justify-content:flex-end;'>$close_button</div>
+                                            
+                                            <p style='transform: translateY(-30px); margin-top:15px;'>$postContent</p>
                                         </div>
                                     </div>
                                     <div style='display:flex; margin-top:20px;'>

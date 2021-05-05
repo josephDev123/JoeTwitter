@@ -67,7 +67,8 @@ if (isset($_GET['u'])) {
            if($user_to == 'new'){
                 ?>
                 <form action="" method="POST">
-                    To: <input type="text" name='q' oninput= "listOfUsersToMessage(event)">
+                   <label for="search">To:</label> 
+                   <input type="text" name='q' id='search' onkeyup= "listOfUsersToMessage(event)">
                 
                 </form>
                 <div class='load_search'>
