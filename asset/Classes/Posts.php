@@ -63,7 +63,7 @@ public function getPost(){
                 <script>
                     function toggle<?php echo $post_id; ?>(){
                         const element = document.getElementById('comment_section<?php echo $post_id; ?>');
-                        if(element.style.display = 'none'){
+                        if(element.style.display == 'none'){
                             element.style.display = 'block';
                         }else{
                             element.style.display = 'none';

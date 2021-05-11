@@ -90,15 +90,29 @@ if (isset($_POST['addFriend'])) {
         </div>
      
         <div class="profile_newfeed_container" style='background-color:black;'>
-        <?php 
-        $profile_post = new Posts($conn, $loggedIn);
-        echo $profile_post->getProfilePost($username);
-        ?>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#newsfeed_collapse" data-toggle='collapse'>Newsfeed</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" >Message</a>
+                </li>
+               
+           </ul>
+        <div class="collapse" id='newsfeed_collapse'>
+            <?php 
+            $profile_post = new Posts($conn, $loggedIn);
+            echo $profile_post->getProfilePost($username);
+            ?>
+        
+        </div>
        
         </div>
 
     </div>
 </div>
+
 
 <!-- modal -->
 
