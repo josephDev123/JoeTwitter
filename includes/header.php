@@ -41,6 +41,7 @@ if (isset($_POST['post_submit'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
    
     <script src="asset\js\jquery.js"></script>
+    
     <title>Home</title>
 </head>
 <body>
@@ -50,7 +51,13 @@ if (isset($_POST['post_submit'])) {
         </div> 
         
         <div class="searchBar_container">
-            <input type="text" placeholder="Search">
+            <form action="" method="get" id='search_form'>
+                <input type="text" name="q" id="search_input_text" onkeyup ="fetchResult(this.value, '<?php echo $_SESSION['surname'] ?>')" placeholder="Search">
+            </form>
+        </div>
+
+        <div class='search_result'>
+
         </div>
 
         <div class="header_icons">

@@ -1,33 +1,33 @@
-// //  send post from profile page to postFromProfile.php to submit post.
-// $(document).ready(function(){
+// $(document).ready(()=>{
+    // $.post(searchResult.php, {query:$input_value, personLoggedIn:$userloggedIn}, (data)=>{
+    //     $('.search_result').html(data);
 
-//     $('#sendpostfromProfile').on('click', ()=>{
-      
-//       $.ajax({
-//         type:'POST',
-//         url: "includes/postFromProfile.php",
-//         data:{
-//           text: $('#message_text').val(),
-//           userTo: '<?php echo $username; ?>',
-//           postBy:  "<?php echo $loggedIn; ?>"
-//         },
- 
-//         success:(result)=>{
-//          console.log(result);
-//         },
- 
-//         success:(error)=>{
-//          console.log(error);
-//        }
- 
-//       })
-//       location.reload();
- 
-//     })
+    // })    
 
-
-//  })
- 
-function listOfUsersToMessage(){
-    console.log('hello');
-}
+//     console.log('hello');
+// })
+    // let input = document.getElementById('search_input_text');
+    // input.onclick = fetchResult('<?php echo $userloggedIn; ?>');
+        function fetchResult(value, userloggedIn){
+                fetch(`searchResult.php`, {
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                      },
+                      mode: "same-origin",
+                      credentials: "same-origin",
+                    body:{
+                        query:JSON.stringify(value),
+                        personLoggedIn:JSON.stringify(userloggedIn)
+                    }
+                    
+                }).then(data =>{
+                        // document.querySelector('.search_result').innerHTML = data.json();
+                        console.log(data.text());
+                }).then(response =>{
+                    console.log('success;',response);
+                }).catch(error=>{
+                    document.querySelector('.search_result').innerHTML = error.message;
+                })
+        }
