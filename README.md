@@ -16,4 +16,12 @@ Javascript, Boostrap, jQuery, PHP, SQL
 No link because it's in development stage
 
                      
-                  
+       <a href="<?php echo $surname; ?>">
+<div class='sql_result_wrapper'>
+    <div class='img_And_namesWrapper'>
+        <img src="<?php echo $user_obj->getProfilePic(); ?>" alt="">
+        <h3><?php echo $user_obj->getProfilePic(); ?></h3>
+    </div>
+
+</div>
+</a>           

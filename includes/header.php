@@ -51,9 +51,9 @@ if (isset($_POST['post_submit'])) {
         </div> 
         
         <div class="searchBar_container">
-            <form action="" method="get" id='search_form'>
-                <input type="text" name="q" id="search_input_text" onkeyup ="fetchResult(this.value, '<?php echo $_SESSION['surname'] ?>')" placeholder="Search">
-            </form>
+            <!-- <form action="" method="get" id='search_form'> -->
+                <input type="text" name="q" id="search_input_text" onkeyup =" return fetchResult(this.value, '<?php echo $_SESSION['surname'] ?>')" placeholder="Search">
+            <!-- </form> -->
         </div>
 
         <div class='search_result'>
