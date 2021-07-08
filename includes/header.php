@@ -51,9 +51,9 @@ if (isset($_POST['post_submit'])) {
         </div> 
         
         <div class="searchBar_container">
-            <!-- <form action="" method="get" id='search_form'> -->
+            <form action="" method="get" id='search_form'>
                 <input type="text" name="q" id="search_input_text" onkeyup =" return fetchResult(this.value, '<?php echo $_SESSION['surname'] ?>')" placeholder="Search">
-            <!-- </form> -->
+            </form>
         </div>
 
         <div class='search_result'>
@@ -66,7 +66,7 @@ if (isset($_POST['post_submit'])) {
                 <li> <a href='message.php'><i class="fas fa-envelope-open-text"></i></a></li>
                 <li><a href="index.php"><i class="fas fa-house-user"></i></a></li>
                 <li><a href="responseFriend.php"><i class="fas fa-bell"></i></a></li>
-                <li><i class="fal fa-user-cog"></i></li>
+                <li><a href="settings.php"><i class="fas fa-user-cog"></i></a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-circle-right"></i></a></li>
              
             </ul>

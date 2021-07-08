@@ -11,7 +11,7 @@ $personLoggedIn = $content["personLoggedIn"];
 $name = str_split($query);
 
 if (strpos($content['query'], '-')) {
-    $returedQuery = mysqli_query($conn, "SELECT * FROM user_table WHERE reg_surname LIKE '$query%' AND account_closed ='no' ");
+    $returedQuery = mysqli_query($conn, "SELECT * FROM user_table WHERE reg_surname = '$query' AND account_closed ='no' ");
 }elseif (count($name) == 2) {
     $returedQuery = mysqli_query($conn, "SELECT * FROM user_table WHERE (reg_firstname LIKE '$name[0]%' AND reg_lastname LIKE  '$name[1]%') AND account_closed ='no' ");
 }else {
@@ -32,9 +32,9 @@ if ($query !=' ') {
     $array_friends = $sqlFetch['array_friends'];
 
     $user_obj = new Users($conn, $surname);
-  
+    
     if($personLoggedIn != $surname){
-       echo $surname;
+      echo $surname;
     //    echo "<a href=$surname>
     //         <div class='sql_result_wrapper'>
     //             <div class='img_And_namesWrapper'>
