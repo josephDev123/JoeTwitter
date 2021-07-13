@@ -11,16 +11,20 @@ include 'includes/settings_handler.php';
 <div class='container'>
     <div class="row">
         <div class='col-md-4 mx-auto'>
-        <h2>Setting Page</h2>
+        <h3 style='padding:10px; background:green;color:white;'>Setting Page</h3>
         <img src="<?php echo $profile_pic ?>" height='150' width='150' class="img-responsive rounded-circle mx-auto d-block" alt="<?php echo $row['reg_surname']; ?>">
 
         <div class="mb-3">
-            <label for="formFile" class="form-label">Change profile image</label>
-            <input class="form-control" type="file" id="formFile">
+        <?php echo $upload_message; ?>
+            <form action="settings.php" method="post" enctype="multipart/form-data">
+                <label for="formFile" class="form-label">Change profile image</label>
+                <input class="form-control" name='profile_pic' type="file" id="formFile">
+                 <input class='btn btn-primary' type="submit" name='profile_pic_submit_btn' value='Upload picture'>
+            </form>
         </div>
 <br>
 <!-- change firstname, lastname, email -->
-        <h3>Change Credentials</h3>
+        <h4>Change Credentials</h4>
         <?php echo $update_message; ?>
         <form action='settings.php' method='POST'>
         <div class="mb-3">
@@ -42,7 +46,8 @@ include 'includes/settings_handler.php';
 
         <br>
        
-        <h3>Change Password</h3>
+        <h4>Change Password</h4>
+        <?php echo $password_message; ?>
         <form action='settings.php' method='POST'>
             <div class="mb-3">
                 <label for="old_Password" class="form-label">Old Password</label>
@@ -57,10 +62,28 @@ include 'includes/settings_handler.php';
         </form>
 
         <br>
-        <h3>Close Account</h3>
+<?php 
+        if($row['account_closed'] == 'no'){
+            ?>
+         <h4>Close Account</h4>
+        <?php echo $account_close_message; ?>
         <form action='settings.php' method='POST'>
         <button type="submit" name='close_account' class="btn btn-danger">Close Account</button>
         </form>
+
+<?php
+        }else {
+            ?>
+           <h4>Open Account</h4>
+        <?php echo $account_close_message; ?>
+        <form action='settings.php' method='POST'>
+        <button type="submit" name='open_account' class="btn btn-primary">Open Account</button>
+        </form>
+           <?php
+        }
+       ?>
+
+        
 
         </div>
     </div>
