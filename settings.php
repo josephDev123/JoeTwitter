@@ -1,6 +1,7 @@
 <?php
 include 'includes/header.php';
 include 'includes/settings_handler.php';
+
 ?>
 
 <?php
@@ -15,8 +16,14 @@ include 'includes/settings_handler.php';
         <img src="<?php echo $profile_pic ?>" height='150' width='150' class="img-responsive rounded-circle mx-auto d-block" alt="<?php echo $row['reg_surname']; ?>">
 
         <div class="mb-3">
-        <?php echo $upload_message; ?>
-            <form action="settings.php" method="post" enctype="multipart/form-data">
+        <?php  if(isset($upload)){
+            echo $upload;
+            }else{
+                echo $errors ;
+            }
+            
+            ?>
+            <form action="settings.php" method="POST" enctype="multipart/form-data">
                 <label for="formFile" class="form-label">Change profile image</label>
                 <input class="form-control" name='profile_pic' type="file" id="formFile">
                  <input class='btn btn-primary' type="submit" name='profile_pic_submit_btn' value='Upload picture'>

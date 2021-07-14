@@ -1,55 +1,37 @@
 <?php
 include 'database/database_config.php';
-$_FILES["profile_pic"]["name"] ='';
-$_FILES["profile_pic"]["size"] ='';
-$upload_message = '';
-    $target_dir = "images/profile_pic/";
-$target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-// Check if image file is a actual image or fake image
-if(isset($_POST["profile_pic_submit_btn"])) {
-  $check = getimagesize($_FILES["profile_pic"]["tmp_name"]);
-  if($check !== false) {
-    $upload_message.= '<div class="alert alert-danger">File is an image - " . $check["mime"] . "." </div>';
-    $uploadOk = 1;
-  } else {
-    $upload_message.= "<div class='alert alert-danger'>File is not an image.  </div>";
-    $uploadOk = 0;
+
+if(isset($_FILES['profile_pic'])){
+  $errors= '';
+  $file_name = $_FILES['profile_pic']['name'];
+  $file_size =$_FILES['profile_pic']['size'];
+  $file_tmp =$_FILES['profile_pic']['tmp_name'];
+  $file_type=$_FILES['profile_pic']['type'];
+  $file_ext=strtolower(end(explode('.', $file_name)));
+  
+  $extensions= array("jpeg","jpg","png");
+  
+  if(in_array($file_ext,$extensions)=== false){
+     $errors.="<div class='alert alert-success'>extension not allowed, please choose a JPEG or PNG file.</div>";
   }
-}
-
-// Check if file already exists
-if (file_exists($target_file)) {
-    $upload_message.= "<div class='alert alert-danger'>Sorry, file already exists. </div>";
-  $uploadOk = 0;
-}
-
-// Check file size
-if ($_FILES["profile_pic"]["size"] > 500000) {
-    $upload_message.= "<div class='alert alert-danger'>Sorry, your file is too large.</div>";
-  $uploadOk = 0;
-}
-
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    $upload_message.= "<div class='alert alert-danger'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</div>";
-  $uploadOk = 0;
-}
-
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    $upload_message.= "<div class='alert alert-danger'>Sorry, your file was not uploaded.</div>";
-// if everything is ok, try to upload file
-} else {
-  if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file)) {
-    $upload_message.= "The file ". htmlspecialchars( basename( $_FILES["profile_pic"]["name"])). " has been uploaded.";
-    $sql =mysqli_query($conn, "UPDATE user_table SET profile_pic ='$target_file' WHERE reg_surname ='{$_SESSION["surname"]}'");
-  } else {
-    $upload_message.= "<div class='alert alert-danger'>Sorry, there was an error uploading your file.</div>";
+  
+  if($file_size > 2097152){
+     $errors.="<div class='alert alert-success'>File size must be excately 2 MB </div>";
   }
+  
+  if(empty($errors)==true){
+     move_uploaded_file($file_tmp, "asset/images/profile_pic/".$file_name);
+     $upload = "<div class='alert alert-success'>Success </div>";
+     $sql =mysqli_query($conn, "UPDATE user_table SET profile_pic ='asset/images/profile_pic/$file_name' WHERE reg_surname ='{$_SESSION["surname"]}'");
+    //  header('Location: settings.php');
+  }
+  // else{
+  //    print_r($errors);
+  // 
+}else{
+  $upload ='';
+  $errors = '';
 }
 
 
